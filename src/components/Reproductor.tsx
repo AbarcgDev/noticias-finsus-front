@@ -13,8 +13,8 @@ const AudioPlayerWithVisualizer: React.FC<AudioPlayerWithVisualizerProps> = ({ a
     const options = {
         container: "#waveform",
         height: 60,
-        waveColor: "#008DFF",
-        progressColor: "#32D583",
+        waveColor: "#23223f",
+        progressColor: "#ff5f54",
         cursorWidth: 2,
         barWidth: 3,
         barGap: 2,

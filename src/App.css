@@ -6,57 +6,92 @@
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	font-family: 'Inter', sans-serif;
-	background-color: #F5F5F5;
-	color: #0D1B2A;
+	font-family: 'Poppins', sans-serif;
+	background-color: #ffffff;
+	color: #000000;
 	overflow-x: hidden;
 	height: 100vh;
+	width: 100vw;
 }
 
-/* Contenedor principal */
+/* Layout principal - Reproductor 2/3, Transcripción 1/3 */
 main {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	/* transcripción 1/3, reproductor 2/3 */
+	height: 100vh;
+	width: 100vw;
+	gap: 1rem;
+	padding: 1rem;
+	background-color: #ffffff;
+	margin-top: 60px;
+}
+
+/* Sección transcripción (izquierda) */
+#transcription {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	min-height: 100vh;
-	width: 100vw;
-	padding: 20px;
-	background-color: #F5F5F5;
+	background-color: #ffffff;
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
 }
 
-/* Contenedor del reproductor */
+/* Sección reproductor (derecha) */
+#reproductor {
+	background-image: url("/logo-finsus.png");
+	background-repeat: no-repeat;
+	background-size: 400px auto;
+	background-position: center 150px;
+	/* centrado horizontal, 80px desde arriba */
+	background-attachment: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/*background-color: #ffffff;*/
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	padding: 20px;
+}
+
+#reproductor img {
+	width: 200;
+	height: auto;
+	object-fit: contain;
+	justify-content: center;
+	margin: 0;
+}
+
+/* ========================================== */
+/* ESTILOS DEL REPRODUCTOR */
+/* ========================================== */
+
 .audio-waveform-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	max-width: 900px;
-	margin: 0 auto;
-	padding: 0 20px;
+	height: 100%;
 }
 
-/* Reproductor limpio y organizado */
 .audio-waveform-clean {
 	width: 100%;
 	max-width: 700px;
-	background-color: #0D1B2A;
+	background-color: #ffffff;
 	border-radius: 16px;
 	padding: 24px;
 	box-shadow:
 		0 8px 24px rgba(0, 0, 0, 0.4),
 		0 4px 8px rgba(0, 0, 0, 0.1);
-	margin: 0 auto;
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	animation: slideInUp 0.6s ease-out;
 }
 
-/* Sección del waveform */
 .waveform-section {
 	width: 100%;
 	display: flex;
@@ -69,7 +104,12 @@ main {
 	width: 100% !important;
 }
 
-/* Estados de carga y error - mejorados */
+.waveform-section canvas {
+	border-radius: 8px !important;
+	background-color: #132F4C !important;
+}
+
+/* Estados de carga y error del reproductor */
 .loading-state,
 .error-state {
 	display: flex;
@@ -88,16 +128,6 @@ main {
 	border-top: 3px solid #32D583;
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
-
-	100% {
-		transform: rotate(360deg);
-	}
 }
 
 .error-state {
@@ -119,9 +149,140 @@ main {
 	background-color: #dc2626;
 }
 
-/* Animación de entrada */
-.audio-waveform-clean {
-	animation: slideInUp 0.6s ease-out;
+/* ========================================== */
+/* ESTILOS DE LA TRANSCRIPCIÓN */
+/* ========================================== */
+
+.transcription-container {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+}
+
+.transcription-header {
+	color: #1f2937;
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	text-align: center;
+	flex-shrink: 0;
+}
+
+.transcription-textarea {
+	flex: 1;
+	padding: 1.25rem;
+	border: 2px solid #d1d5db;
+	border-radius: 0.75rem;
+	font-family: 'Courier New', 'Lucida Console', monospace;
+	font-size: 0.9rem;
+	line-height: 1.6;
+	color: #374151;
+	background-color: #ffffff;
+	resize: none;
+	transition: all 0.3s ease;
+}
+
+.transcription-textarea:focus {
+	outline: none;
+	border-color: #3b82f6;
+	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+	background-color: #f9fafb;
+}
+
+.transcription-textarea::placeholder {
+	color: #9ca3af;
+	font-style: italic;
+}
+
+/* Estados de carga y error de la transcripción */
+.transcription-loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 3rem 1rem;
+	text-align: center;
+}
+
+.transcription-loading .loading-spinner {
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 2px solid #e5e7eb;
+	border-top: 2px solid #3b82f6;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+	margin-right: 0.75rem;
+}
+
+.loading-text {
+	color: #6b7280;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+.transcription-error {
+	padding: 1rem;
+	background-color: #fef2f2;
+	border: 1px solid #fecaca;
+	border-radius: 0.5rem;
+	margin: 1rem;
+}
+
+.error-text {
+	color: #dc2626;
+	font-weight: 500;
+	margin-bottom: 0.75rem;
+}
+
+.retry-button {
+	background-color: #dc2626;
+	color: white;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 0.375rem;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.retry-button:hover {
+	background-color: #b91c1c;
+}
+
+/* ========================================== */
+/* SCROLLBAR PERSONALIZADO */
+/* ========================================== */
+
+.transcription-textarea::-webkit-scrollbar {
+	width: 8px;
+}
+
+.transcription-textarea::-webkit-scrollbar-track {
+	background: #f1f5f9;
+	border-radius: 4px;
+}
+
+.transcription-textarea::-webkit-scrollbar-thumb {
+	background: #cbd5e1;
+	border-radius: 4px;
+}
+
+.transcription-textarea::-webkit-scrollbar-thumb:hover {
+	background: #94a3b8;
+}
+
+/* ========================================== */
+/* ANIMACIONES */
+/* ========================================== */
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 @keyframes slideInUp {
@@ -136,32 +297,148 @@ main {
 	}
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* ========================================== */
+/* RESPONSIVE DESIGN */
+/* ========================================== */
+
+/* Tablets - Layout vertical */
+@media (max-width: 1024px) {
 	main {
-		padding: 16px;
+		grid-template-columns: 1fr;
+		grid-template-rows: 2fr 1fr;
+		/* reproductor arriba (2/3), transcripción abajo (1/3) */
+		gap: 0.75rem;
+		padding: 0.75rem;
+		height: 100vh;
+		width: 100vw;
 	}
 
-	.audio-waveform-container {
-		max-width: 100%;
-		padding: 0 12px;
+	#reproductor {
+		padding: 16px;
+	}
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+	main {
+		gap: 0.5rem;
+		padding: 0.5rem;
+		grid-template-rows: 1fr 1fr;
+		/* 50/50 en móvil */
+		height: 100vh;
+		width: 100vw;
+	}
+
+	#reproductor {
+		padding: 12px;
 	}
 
 	.audio-waveform-clean {
-		max-width: 100%;
 		padding: 20px;
+	}
+
+	.transcription-container {
+		padding: 0.75rem;
+	}
+
+	.transcription-header {
+		font-size: 1.25rem;
+	}
+
+	.transcription-textarea {
+		font-size: 0.85rem;
+		padding: 1rem;
 	}
 }
 
 @media (max-width: 480px) {
+	main {
+		padding: 0.25rem;
+		gap: 0.25rem;
+		height: 100vh;
+		width: 100vw;
+	}
+
 	.audio-waveform-clean {
 		padding: 16px;
 		border-radius: 12px;
 	}
+
+	.transcription-container {
+		padding: 0.5rem;
+	}
+
+	.transcription-header {
+		font-size: 1.125rem;
+	}
+
+	.transcription-textarea {
+		font-size: 0.8rem;
+		padding: 0.875rem;
+	}
 }
 
-/* Mejoras para el canvas del waveform */
-.waveform-section canvas {
-	border-radius: 8px !important;
-	background-color: #132F4C !important;
+/* ========================================== */
+/* HEADER STYLES */
+/* ========================================== */
+
+.app-header {
+	background-color: #ffffff;
+	color: #000000;
+	padding: 0.75rem 1rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.header-content {
+	max-width: 1400px;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+/* Brand section */
+.header-brand {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-shrink: 0;
+}
+
+.brand-logo {
+	width: 50px;
+	height: 50px;
+	object-fit: contain;
+	border-radius: 4px;
+}
+
+.brand-title {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #000000;
+	margin: 0;
+}
+
+/* Info section */
+.header-info {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+}
+
+.current-time {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	background-color: rgba(255, 255, 255, 0.1);
+	padding: 0.5rem 1rem;
+	border-radius: 20px;
+	font-weight: 500;
+	color: #000;
 }
