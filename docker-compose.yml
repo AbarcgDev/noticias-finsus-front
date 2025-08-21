@@ -1,0 +1,22 @@
+services:
+  dev:
+    image: node:lts
+    container_name: noticias-finsus-front
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "5173:5173"
+    command: sh -c "bash"
+    stdin_open: true
+    tty: true
+
+  deployer:
+    image: node:lts
+    container_name: noticias-finsus-front-deployer
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+    env_file:
+      - .env
+    command: sh deploy.sh

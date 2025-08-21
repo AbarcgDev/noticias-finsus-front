@@ -1,0 +1,167 @@
+/* Reset y configuración base */
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
+	background-color: #F5F5F5;
+	color: #0D1B2A;
+	overflow-x: hidden;
+	height: 100vh;
+}
+
+/* Contenedor principal */
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	width: 100vw;
+	padding: 20px;
+	background-color: #F5F5F5;
+}
+
+/* Contenedor del reproductor */
+.audio-waveform-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Reproductor limpio y organizado */
+.audio-waveform-clean {
+	width: 100%;
+	max-width: 700px;
+	background-color: #0D1B2A;
+	border-radius: 16px;
+	padding: 24px;
+	box-shadow:
+		0 8px 24px rgba(0, 0, 0, 0.4),
+		0 4px 8px rgba(0, 0, 0, 0.1);
+	margin: 0 auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* Sección del waveform */
+.waveform-section {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 80px;
+}
+
+.waveform-section>div {
+	width: 100% !important;
+}
+
+/* Estados de carga y error - mejorados */
+.loading-state,
+.error-state {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 120px;
+	gap: 16px;
+	color: #94a3b8;
+}
+
+.loading-spinner {
+	width: 32px;
+	height: 32px;
+	border: 3px solid #334155;
+	border-top: 3px solid #32D583;
+	border-radius: 50%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.error-state {
+	color: #ef4444;
+}
+
+.error-state button {
+	background-color: #ef4444;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: background-color 0.2s;
+}
+
+.error-state button:hover {
+	background-color: #dc2626;
+}
+
+/* Animación de entrada */
+.audio-waveform-clean {
+	animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+	main {
+		padding: 16px;
+	}
+
+	.audio-waveform-container {
+		max-width: 100%;
+		padding: 0 12px;
+	}
+
+	.audio-waveform-clean {
+		max-width: 100%;
+		padding: 20px;
+	}
+}
+
+@media (max-width: 480px) {
+	.audio-waveform-clean {
+		padding: 16px;
+		border-radius: 12px;
+	}
+}
+
+/* Mejoras para el canvas del waveform */
+.waveform-section canvas {
+	border-radius: 8px !important;
+	background-color: #132F4C !important;
+}
