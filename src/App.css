@@ -14,8 +14,17 @@ body {
 	width: 100vw;
 }
 
-/* Layout principal - Reproductor 2/3, Transcripción 1/3 */
 main {
+	height: 100vh;
+	width: 100vw;
+	gap: 1rem;
+	padding: 1rem;
+	background-color: #ffffff;
+	margin-top: 60px;
+}
+
+/* Layout principal - Reproductor 2/3, Transcripción 1/3 */
+.tercios {
 	display: grid;
 	grid-template-columns: 1fr 2fr;
 	/* transcripción 1/3, reproductor 2/3 */
@@ -54,6 +63,20 @@ main {
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 	padding: 20px;
+}
+
+#editor {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/*background-color: #ffffff;*/
+	border-radius: 0.75rem;
+	box-shadow: 0 4px 6px -1px rgba(0.1, 0, 0, 0.1);
+	overflow: hidden;
+	padding: 20px;
+	height: 100%;
+	width: 100%;
 }
 
 #reproductor img {
@@ -386,8 +409,6 @@ main {
 	background-color: #ffffff;
 	color: #000000;
 	padding: 0.75rem 1rem;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 	position: sticky;
 	top: 0;
 	z-index: 100;
