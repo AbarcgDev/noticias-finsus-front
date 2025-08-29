@@ -1,17 +1,18 @@
 import AudioPlayerWithVisualizer from "../components/Reproductor";
 import Transcription from "../components/Transcripcion";
+import api from "../api.json"
 
 export const PublicScreen = () => {
     return (
         <main className="tercios">
             <section id='transcription'>
                 <Transcription
-                    apiUrl='http://localhost:8787/api/noticieros/latest'
+                    apiUrl={`${api.url}${api.endpoints.getGuion}`}
                 />
             </section>
             <section id='reproductor'>
                 <AudioPlayerWithVisualizer
-                    audioUrl='http://localhost:8787/api/noticieros/latest/audio/mp3'
+                    audioUrl={`${api.url}${api.endpoints.getMp3Audio}`}
                 />
             </section>
         </main>

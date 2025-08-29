@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 
 export interface EditorProps {
-    initialText?: string;
-    onTextChange?: (text: string) => void;
+  initialText?: string;
+  onTextChange?: (text: string) => void;
+}
+
+// Define el tipo de los métodos que expondrá la ref
+export interface EditorRef {
+  getContent: () => string;
+  setContent: (text: string) => void;
+  clear: () => void;
 }
 
 const StyledTextarea = styled(TextareaAutosize)`
@@ -21,7 +28,7 @@ const StyledTextarea = styled(TextareaAutosize)`
   background-color: #ffffff;
   transition: border-color 0.2s ease;
   display: flex;
-  justify-content: center
+  justify-content: center;
 
   &:focus {
     outline: none;
@@ -34,24 +41,37 @@ const StyledTextarea = styled(TextareaAutosize)`
   }
 `;
 
-export const Editor: React.FC<EditorProps> = ({
-    initialText = '',
-    onTextChange
-}) => {
-    const [text, setText] = useState(initialText);
+export const Editor = forwardRef<EditorRef, EditorProps>(({
+  initialText = '',
+  onTextChange
+}, ref) => {
+  const [text, setText] = useState(initialText);
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const newValue = e.target.value;
-        setText(newValue);
-        onTextChange?.(newValue); // Opcional: notificar al padre
-    };
+  // Expone métodos a través de la ref
+  useImperativeHandle(ref, () => ({
+    getContent: () => text,
+    setContent: (newText: string) => {
+      setText(newText);
+      onTextChange?.(newText);
+    },
+    clear: () => {
+      setText('');
+      onTextChange?.('');
+    }
+  }), [text, onTextChange]);
 
-    return (
-        <StyledTextarea
-            value={text}
-            onChange={handleChange}
-            minRows={3}
-            maxRows={10}
-        />
-    );
-}
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newValue = e.target.value;
+    setText(newValue);
+    onTextChange?.(newValue);
+  };
+
+  return (
+    <StyledTextarea
+      value={text}
+      onChange={handleChange}
+      minRows={3}
+      maxRows={10}
+    />
+  );
+});

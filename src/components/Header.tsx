@@ -1,5 +1,4 @@
-import React from 'react';
-import { Radio, Clock } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 // Componente Header
 export const Header = () => {

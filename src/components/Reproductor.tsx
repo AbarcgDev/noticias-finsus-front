@@ -43,7 +43,8 @@ const AudioPlayerWithVisualizer: React.FC<AudioPlayerWithVisualizerProps> = ({ a
             setHasError(false);
         };
 
-        const handleLoadError = () => {
+        const handleLoadError = (error: any) => {
+            console.error(error)
             setIsLoading(false);
             setHasError(true);
         };
