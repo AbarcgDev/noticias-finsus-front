@@ -78,6 +78,11 @@ Actualmente la configuración de autenticación es utilizar un Pin que se envía
 el correo electrónico proporcionado por el administrador. Cloudflare se encarga de 
 la veficación del Pin y de crear las cookies de sesion.
 
+### Política de acceso
+
+Se ha configurado una política para solo permitir envio de pins de acceso a correos
+electronicos con el dominio de finsus.
+
 ## Azure Entra ID
 Cloudflare Zero Trust soporta al 100% integración con Entra ID
 Para ello debe crearse una aplicación en el dashboard de Azure y
