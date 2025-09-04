@@ -67,3 +67,23 @@ export default tseslint.config([
   },
 ])
 ```
+# Autenticación
+
+En el entorno de desarrollo no se tiene autenticación
+
+La autenticacion es manejada a nivel plataforma por Cloudflare Zero trust.
+
+## Single Time Pin
+Actualmente la configuración de autenticación es utilizar un Pin que se envía por
+el correo electrónico proporcionado por el administrador. Cloudflare se encarga de 
+la veficación del Pin y de crear las cookies de sesion.
+
+## Azure Entra ID
+Cloudflare Zero Trust soporta al 100% integración con Entra ID
+Para ello debe crearse una aplicación en el dashboard de Azure y
+definir los permisos de acceso a grupos o roles.
+
+Posteriormente se obtiene los codigos de aplicación y de propietario
+desde Azure, estos codigos son necesarios para configurar la integración con Clodflare.
+
+Para más detalles se puede consultar la [documentación oficial de Cloudflare](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/entra-id/)
